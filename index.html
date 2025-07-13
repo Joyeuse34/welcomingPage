@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bemor - Practice with Virtual Patients</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background: #ffffff;
+                color: #1a1a1a;
+                line-height: 1.6;
+            }
+
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+
+            /* Hero Section */
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                background: linear-gradient(135deg, #f8fffe 0%, #f0f9ff 100%);
+            }
+
+
+            .hero-content {
+                max-width: 800px;
+                padding: 60px 0;
+            }
+
+
+            .hero h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                color: #0f172a;
+                line-height: 1.1;
+            }
+
+
+            .hero .subtitle {
+                font-size: 1.5rem;
+                color: #64748b;
+                margin-bottom: 3rem;
+                font-weight: 400;
+            }
+
+
+            .cta-buttons {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+
+            .btn {
+                padding: 16px 32px;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 1rem;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+
+            .btn-primary {
+                background: linear-gradient(90deg, #ffde59 0%, #ff914d 100%);
+                color: white;
+                box-shadow: 0 4px 14px rgba(255, 145, 77, 0.25);
+            }
+
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(255, 145, 77, 0.35);
+            }
+
+
+            .btn-secondary {
+                background: white;
+                color: #ff914d;
+                border: 2px solid #e2e8f0;
+            }
+
+
+            .btn-secondary:hover {
+                border-color: #ff914d;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            }
+
+
+            /* Section Styles */
+            .section {
+                padding: 80px 0;
+            }
+
+
+            .section-title {
+                font-size: 2.5rem;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 3rem;
+                color: #0f172a;
+            }
+
+
+            /* Why It Matters */
+            .why-matters {
+                background: #ffffff;
+                text-align: center;
+            }
+
+
+            .why-matters p {
+                font-size: 1.25rem;
+                color: #475569;
+                max-width: 800px;
+                margin: 0 auto 2rem;
+                line-height: 1.7;
+            }
+
+
+            /* Who It's For */
+            .who-for {
+                background: #f8fafc;
+            }
+
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 3rem;
+            }
+
+
+            .feature-card {
+                background: white;
+                padding: 2.5rem;
+                border-radius: 16px;
+                text-align: center;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+
+            .feature-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }.feature-icon {
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(90deg, #ffde59 0%, #ff914d 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1.5rem;
+                font-size: 24px;
+                color: white;
+            }
+
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+                color: #0f172a;
+            }
+
+
+            .feature-card p {
+                color: #64748b;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+
+            /* Contact Section */
+            .contact {
+                background: #ffffff;
+            }
+
+
+            .contact-content {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+
+            .contact .subtitle {
+                font-size: 1.25rem;
+                color: #64748b;
+                margin-bottom: 3rem;
+            }
+
+
+            .contact-form {
+                background: #f8fafc;
+                padding: 3rem;
+                border-radius: 16px;
+                margin-bottom: 2rem;
+            }
+
+
+            .form-group {
+                margin-bottom: 1.5rem;
+                text-align: left;
+            }
+
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 500;
+                color: #374151;
+            }
+
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+
+            .form-group input:focus,
+            .form-group textarea:focus {
+                outline: none;
+                border-color: #ff914d;
+            }
+
+
+            .form-group textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+
+
+            .form-group select {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+                background: white;
+            }
+
+
+            .form-group select:focus {
+                outline: none;
+                border-color: #ff914d;
+            }
+
+
+            .contact-info {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+                margin-top: 2rem;
+            }
+
+
+            .contact-item {
+                color: #64748b;
+                font-size: 1rem;
+            }
+
+
+            /* Header with logo */
+            .header {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 20px 0;
+                z-index: 10;
+            }
+
+
+            .header-logo {
+                font-family: 'Inter', sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                background: linear-gradient(90deg, #ffde59 0%, #ff914d 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-decoration: none;
+                display: inline-block;
+            }
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+
+
+                .hero .subtitle {
+                    font-size: 1.25rem;
+                }
+
+
+                .cta-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+
+                .btn {
+                    width: 100%;
+                    max-width: 300px;
+                }
+
+
+                .section-title {
+                    font-size: 2rem;
+                }
+
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+
+
+                .contact-form {
+                    padding: 2rem;
+                }.contact-info {
+                    flex-direction: column;
+                    text-align: center;
+                }
+            }
+        </style>
+</head>
+<body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-logo">bemor</div>
+            </div>
+        </header>
+
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Practice with Virtual Patients.<br>Before Treating Real Ones.</h1>
+                    <p class="subtitle">AI-powered virtual patients for dental education.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Book a Demo</a>
+                        <a href="#contact" class="btn btn-secondary">Try the Beta</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Why It Matters -->
+        <section class="section why-matters">
+            <div class="container">
+                <h2 class="section-title">Why It Matters</h2>
+                <p>Many dental students graduate without ever practicing real medical interviews. That leads to anxiety, poor diagnostics, and clinical mistakes. Bemor fixes this — with realistic, AI-driven patient conversations and feedback.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#contact" class="btn btn-primary">Get Started Today</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Who It's For -->
+        <section class="section who-for">
+            <div class="container">
+                <h2 class="section-title">Who It's For</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👨‍🎓</div>
+                        <h3>Students</h3>
+                        <p>Practice real conversations. Be prepared for clinic.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👩‍🏫</div>
+                        <h3>Educators</h3>
+                        <p>Assign cases. Track performance. Teach communication skills effectively.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏫</div>
+                        <h3>Universities</h3>
+                        <p>Modernize clinical education. Affordable. Scalable. Available in English and launching in Uzbek soon.</p>
+                    </div>
+                </div>
+            </div>
+        </section>// Form submission handling with EmailJS
+            document.querySelector('#contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(this);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const organization = formData.get('organization');
+                const interest = formData.get('interest');
+                const message = formData.get('message');
+                
+                // Validate required fields
+                if (!name !email !interest) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Show processing state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                // Prepare template parameters
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    organization: organization || 'Not specified',
+                    interest: interest,
+                    message: message || 'No message provided',
+                    to_email: 'uzbemor@gmail.com'
+                };
+                
+                // Send email using EmailJS
+                emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        alert('Thank you! Your message has been sent successfully. We\'ll get back to you soon.');
+                        document.querySelector('#contactForm').reset();
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                        alert('Sorry, there was an error sending your message. Please try again or contact us directly at uzbemor@gmail.com');
+                    })
+                    .finally(function() {
+                        // Reset button state
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+            });
+
+
+            // Add subtle animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        </script>
+</body>
+</html>
